@@ -7,10 +7,16 @@
 </head>
 <body>
   <h1>Food Scanner</h1>
+
+  <button id="cameraBtn">Start camera</button>
+  <div id="reader" style="width: 320px;"></div>
+
+  <p>Or type the barcode:</p>
   <input id="code" placeholder="Enter barcode">
   <button id="searchBtn">Search</button>
   <pre id="out"></pre>
 
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,7 +1,29 @@
-document.getElementById("searchBtn").addEventListener("click", lookup);
-
-async function lookup() {
+document.getElementById("searchBtn").addEventListener("click", () => {
   const code = document.getElementById("code").value.trim();
+  lookup(code);
+});
+
+document.getElementById("cameraBtn").addEventListener("click", startCamera);
+
+let scanner = null;
+
+function startCamera() {
+  scanner = new Html5Qrcode("reader");
+  scanner.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: { width: 250, height: 150 } },
+    (decodedText) => {
+      scanner.stop();
+      document.getElementById("code").value = decodedText;
+      lookup(decodedText);
+    },
+    () => {}
+  ).catch((err) => {
+    document.getElementById("out").textContent = "Camera error: " + err;
+  });
+}
+
+async function lookup(code) {
   const out = document.getElementById("out");
   out.textContent = "Loading...";
 
@@ -10,7 +32,7 @@ async function lookup() {
     const data = await res.json();
 
     if (data.status === 0) {
-      out.textContent = "Product not found";
+      out.textContent = "Product not found for barcode " + code;
       return;
     }
 
