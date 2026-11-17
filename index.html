@@ -1,25 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Food Scanner</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Food Scanner</h1>
+  <div class="app">
 
-  <button id="cameraBtn">Start camera</button>
-  <div id="reader" style="width: 320px;"></div>
+    <header>
+      <h1>🥔 Food Scanner</h1>
+      <p>Scan any packet. Know what's inside. Eat smarter.</p>
+    </header>
 
-  <p>Or type the barcode:</p>
-  <input id="code" placeholder="Enter barcode">
-  <button id="searchBtn">Search</button>
+    <section class="card">
+      <h2>📷 Scan a barcode</h2>
+      <button id="cameraBtn" class="btn-camera">Start camera</button>
+      <div id="reader"></div>
+    </section>
 
-  <h3>Barcode not found? Read the label:</h3>
-  <input type="file" id="labelPhoto" accept="image/*">
-  <button id="labelBtn">Read label</button>
+    <section class="card">
+      <h2>⌨️ Type the barcode</h2>
+      <div class="row">
+        <input type="text" id="code" placeholder="e.g. 3017620422003">
+        <button id="searchBtn" class="btn-search">Search</button>
+      </div>
+    </section>
 
-  <pre id="out" style="white-space: pre-wrap;"></pre>
+    <section class="card">
+      <h2>🏷️ Not found? Read the label</h2>
+      <input type="file" id="labelPhoto" accept="image/*">
+      <button id="labelBtn" class="btn-label">Read label</button>
+    </section>
+
+    <section class="card">
+      <h2>📋 Result</h2>
+      <pre id="out"></pre>
+    </section>
+
+  </div>
 
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
