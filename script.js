@@ -46,3 +46,52 @@ async function lookup(code) {
     out.textContent = "Error: " + err.message;
   }
 }
+document.getElementById("labelBtn").addEventListener("click", readLabel);
+
+const NON_VEG_WORDS = [
+  "gelatin", "gelatine", "carmine", "cochineal", "lard", "tallow",
+  "fish", "chicken", "beef", "pork", "mutton", "egg", "eggs",
+  "anchovy", "shellac", "isinglass", "meat", "bone"
+];
+
+async function readLabel() {
+  const file = document.getElementById("labelPhoto").files[0];
+  const out = document.getElementById("out");
+
+  if (!file) {
+    out.textContent = "Choose a photo first";
+    return;
+  }
+
+  out.textContent = "Reading label... this can take 10-30 seconds";
+
+  try {
+    const result = await Tesseract.recognize(file, "eng");
+    const text = result.data.text;
+    out.textContent = analyseLabel(text) + "\n\n--- Raw text ---\n" + text;
+  } catch (err) {
+    out.textContent = "Error: " + err.message;
+  }
+}
+
+function analyseLabel(text) {
+  const lower = text.toLowerCase();
+
+  const hits = NON_VEG_WORDS.filter(w =>
+    new RegExp("\\b" + w + "\\b").test(lower)
+  );
+
+  const vegResult = hits.length === 0
+    ? "Veg check: no non-veg words found (also check the green/brown dot on the pack)"
+    : "Veg check: MAY BE NON-VEG, found: " + hits.join(", ");
+
+  const dateLines = text.split("\n").filter(line =>
+    /\b(best before|use by|expiry|exp|mfg|pkd|packed|manufactured)\b/i.test(line)
+  );
+
+  const dateResult = dateLines.length === 0
+    ? "Dates: not found, try a closer photo of the date stamp"
+    : "Dates:\n" + dateLines.join("\n");
+
+  return vegResult + "\n\n" + dateResult;
+}

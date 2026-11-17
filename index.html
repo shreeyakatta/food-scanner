@@ -14,9 +14,15 @@
   <p>Or type the barcode:</p>
   <input id="code" placeholder="Enter barcode">
   <button id="searchBtn">Search</button>
-  <pre id="out"></pre>
+
+  <h3>Barcode not found? Read the label:</h3>
+  <input type="file" id="labelPhoto" accept="image/*">
+  <button id="labelBtn">Read label</button>
+
+  <pre id="out" style="white-space: pre-wrap;"></pre>
 
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
