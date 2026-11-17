@@ -142,7 +142,88 @@ button:active {
   border-radius: 12px;
 }
 
-#out:empty::before {
+#out:empty {
+  display: none;
+}
+
+#resultCard:empty::before {
   content: "Your results will appear here ✨";
+  display: block;
+  padding: 14px;
   color: #9a93b8;
 }
+
+.product {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.product img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #f6f4ff;
+}
+
+.product h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vegbadge, .nutri {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+.vegbadge.veg { background: #1e9e4a; }
+.vegbadge.nonveg { background: #9c5a1c; }
+.vegbadge.unknown { background: #8a8aa3; }
+
+.dot {
+  position: relative;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+}
+
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.n-A { background: #1e9e4a; }
+.n-B { background: #85bb2f; }
+.n-C { background: #d4a900; }
+.n-D { background: #ee8100; }
+.n-E { background: #e63e11; }
+.n-unknown { background: #8a8aa3; }
+
+#resultCard h4 {
+  margin: 14px 0 6px;
+}
+
+#resultCard p {
+  margin: 0;
+  line-height: 1.5;
+}
+
